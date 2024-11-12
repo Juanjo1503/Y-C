@@ -1,0 +1,298 @@
+<?php 
+  require_once 'includes/ti.php';
+  require_once  'includes/class_producto.php';
+  require_once 'includes/class_cliente.php';
+ ?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Y&C tienda deportiva</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="assets/vendors/feather/feather.css">
+    <link rel="stylesheet" href="assets/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- <link rel="stylesheet" href="assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css"> -->
+    <link rel="stylesheet" href="assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="assets/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="assets/js/select.dataTables.min.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="assets/images/favicon.png" />
+  </head>
+  <style>
+    .icono {
+    font-size: 2rem; 
+    margin-right: 25px; 
+  }
+  
+  .titulo {
+    margin: 0;
+  }
+  .form-floating {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+
+  .form-floating input {
+      height: calc(3.5rem + 2px);
+      padding: 1rem;
+  }
+
+  .form-floating label {
+      padding: 0.75rem 1rem;
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      transition: all 0.1s ease-in-out;
+  }
+
+  .form-floating input:focus ~ label,
+  .form-floating input:not(:placeholder-shown) ~ label {
+      transform: scale(0.85) translateY(-0.5rem);
+      color: #007bff;
+  }
+
+  .card {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .contenedor-boton {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+
+
+  
+  .btn-info {
+    background-color: #5417b6; 
+    border: none;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s, transform 0.1s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    align-items: center;
+  }
+
+  .btn-info:hover {
+      background-color: #2f0572; 
+      transform: scale(1.07); 
+      color: white;
+  }
+
+  .btn-info:active {
+      background-color: #24025c;
+      transform: scale(0.97); 
+      box-shadow: 0 2px 4px rgba(255, 255, 255, 0.808);
+  }
+
+  .btn-sm {
+      padding: 15px 30px; 
+      font-size: 14px;
+      border-radius: 4px; 
+      letter-spacing: 1px;
+  }
+
+  .btn-envio {
+      width: 100%; 
+  }
+
+  </style>
+  
+  
+  <body>
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+          <i class="mdi mdi-coffee icono"></i>
+          <h4 class="titulo">Y&C tienda deportiva</h4>
+        </div> 
+        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="icon-menu"></span>
+          </button>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item nav-profile dropdown">
+              <a class="nav-link dropdown-toggle" href="3" data-bs-toggle="dropdown" id="profileDropdown">
+                <img src="assets/images/faces/face28.jpg" alt="profile" />
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                <a class="dropdown-item">
+                  <i class="ti-settings text-primary"></i> Perfil </a>
+                <a class="dropdown-item" href="#">
+                  <i class="ti-power-off text-primary"></i> Salir </a>
+              </div>
+            </li>
+            <li class="nav-item nav-settings d-none d-lg-flex">
+              <a class="nav-link" href="#">
+                <i class="icon-ellipsis"></i>
+              </a>
+            </li>
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="icon-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">
+                <i class="mdi mdi-home menu-icon"></i>
+                <span class="menu-title">Login</span>
+              </a>
+            </li>            
+
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#driver" aria-expanded="false" aria-controls="driver">
+                <i class=" menu-icon mdi mdi-account-multiple"></i>
+                <span class="menu-title">Admin</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="driver">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="home_admin.php">Home Admin</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="cliente_lista.php">Listar Usuarios</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="cliente_nuevo.php">Nuevo Cliente</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="admin_nuevo.php">Nuevo Admin</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="producto_nuevo.php">Nuevo Producto</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="producto_lista.php">Listar Productos</a></li>
+
+
+                  <li class="nav-item"> <a class="nav-link" href="">Carrito</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">Listar ventas de cada carrito</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">informe mensual</a></li>
+                </ul>
+              </div>
+            </li>     
+            
+            
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#driver" aria-expanded="false" aria-controls="driver">
+                <i class=" menu-icon mdi mdi-account-multiple"></i>
+                <span class="menu-title">Cliente</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="driver">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="">Home Cliente</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="cliente_nuevo.php">Registrarse</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">Mostrar carrito</a></li>
+                </ul>
+              </div>
+            </li> 
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            
+          <?php startblock('article') ?>
+
+          <?php endblock() ?>
+
+<!-- Button trigger modal -->
+
+<!--data-bs-toggle y data-bs-target-->
+
+
+
+
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024. UDI</span>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="assets/vendors/chart.js/chart.umd.js"></script>
+    <script src="assets/vendors/datatables.net/jquery.dataTables.js"></script>
+    <!-- <script src="assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script> -->
+    <script src="assets/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
+    <script src="assets/js/dataTables.select.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/template.js"></script>
+    <script src="assets/js/settings.js"></script>
+    <script src="assets/js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="assets/js/dashboard.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <!-- <script src="assets/js/Chart.roundedBarCharts.js"></script> -->
+    <!-- End custom js for this page-->
+    <script>
+      function detalleUser(caso,id,nombres,apellidos,cc){
+
+        var txtCaso = $('#inputCaso').val(caso);
+        var txtNombres = $('#inputNombres').val(nombres);
+        var txtApellidos = $('#inputApellidos').val(apellidos);
+        var txtCc = $('#inputCc').val(cc);
+        var txtID = $('#inputID').val(id);
+
+        $('#modalForm').modal('show');
+
+      }
+
+      function estadoDriver(caso,id,estado){
+        var txtCaso = $('#inputEstadoCaso').val(caso);
+        var txtEstado = $('#inputEstado').val(estado);
+        var txtID = $('#inputEstadoID').val(id);
+
+        $('#modalEstado').modal('show');
+      }
+
+      function test(user,id){
+
+        
+      
+        alert(user,id);
+
+        Swal.fire({
+          title: "The Internet?",
+          text: "That thing is still around?",
+          icon: "question"
+        });
+
+      }
+    </script>
+  </body>
+</html>
